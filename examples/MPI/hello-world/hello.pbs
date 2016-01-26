@@ -1,0 +1,8 @@
+#!/bin/sh
+#PBS -l nodes=8:node
+
+
+cd ${HOME}/cs430/lab/MPI/hello-world
+
+mpiexec -n 8 spmd_hello_world
+

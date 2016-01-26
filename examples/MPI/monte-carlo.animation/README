@@ -1,0 +1,16 @@
+
+You will probably need to install libX11-devel package for this to compile
+
+yum install libX11-devel
+
+Run the MPI parallel program to calculate PI using Monte Carlo method
+
+pbsget -4
+mpiexec -n 4 monte <epsilon>
+exit
+
+Run the MPI parallel program that shows an animation to calculate PI using Monte Carlo method
+
+pbsget -4
+mpiexec -n 4 monte-anim <epsilon>
+exit

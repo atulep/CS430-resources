@@ -1,0 +1,68 @@
+
+
+Sequential wave program
+-----------------------
+The file slow_seq_wave.c contains a simple program of the wave simulation.
+The file fast_seq_wave.c contains a more optimized version of the program
+for wave simulation. To compile these programs copy them to your directory
+and use the Makefile. Note, for fast_seq_wave.c you have to define the
+constant DISPLAY to be 1, else the display code is not compiled. Or you
+can define this constant in the Makefile.  The executables generated 
+by the make are:
+
+slow_wave
+fast_wave
+ghost_wave
+ptr_wave
+
+Note that ghost_wave and ptr_wave are both almost equally fast but ptr_wave is
+much more complicated and I would not recommend using that as your basis for
+the parallel program.
+
+Note that the X Window display for ptr_wave will only work if you choose
+the size of the grid to be no more than 1024. Otherwise, you will have
+to change the constant MAX in ptr_seq_wave.c and recompile.
+
+
+
+There are two different ways of displaying the wave. 
+
+Dynamic display:
+---------------
+ Using the functions initwin(..) and display_once(..)  contained in this file
+ you can dynamically display the wave in color on a X Windows display. 
+ Check out the function create_bitmap() in fast_seq_wave.c. 
+ Note that these functions will work properly only if the array data has 
+ the same dimension as the second argument "size". If you are using malloc 
+ to dynamically allocate the space, then there is no problem. Otherwise, 
+ if you are using a two dimensional array then "size" must match the actual
+ declared dimension. See inside file fast_seq_wave.c on how to use these
+ functions. Also, if the color display doesn't seem right  try executing
+ the command "xstdcmap -all" on your local workstation.
+
+Static display:
+--------------
+
+Using the function pbmdump(..) contained in the file slow_seq_wave.c (and
+med_seq_wave.c), you can write out a file in PBM format containing grey
+code values corresponding to the data values of the wave function. This
+file can be viewed by using the "gqview" command.  By default the name
+of the PBM file is "dump.pbm". Then, you can use the command "gwenview
+dump.pbm" to view the snapshot of the wave (or use some other program
+to view images). This is the preferred method for viewing on slower
+machines or if you want to time the computation without the graphics
+but still want to check the results visually at the end.
+
+Notes from Charles Paulson
+--------------------------
+
+I moved MAX from fast_sequential_wave.c to gldisplay.h, as I needed a static
+buffer for communication between threads.
+
+In addition to replacing the functions "initwin", and "display_once", I added
+a function call to "closewin".
+
+I made the window size dependant on the data size, because, it produced
+strange results when I didn't (like checkerboard type patterns).
+
+

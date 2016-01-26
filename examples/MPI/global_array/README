@@ -1,0 +1,11 @@
+This is a short example to demonstrate how to write a makefile to build
+global array code "outside" the global array test folder.
+
+setups to build and run test code:
+
+make
+pbsget -8
+mpiexec -n 8 ga-mpi
+exit
+
+

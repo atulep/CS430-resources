@@ -1,0 +1,127 @@
+/*
+ spmd_sum.c: A SPMD style parallel sum program in MPI, a modification of
+ the spmd_sum_mpi_1.c program so that it sends each process only its share 
+ of the data instead of all the data. 
+                
+ Author: Hongyi Hu, Amit Jain
+*/
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>  
+#include <mpi.h>
+
+const int INITIAL_BROADCAST = 0;
+const int PARTIAL_SUM = 1;
+
+int add(int *data_share, int share)
+{
+	int i;
+ 	int sum = 0;
+
+  	for(i=0; i<share; i++)
+	  sum += data_share[i];
+
+  	return(sum);
+}
+  
+
+int main(int argc, char **argv)
+{
+    int i;
+    int total = 0;                 /* total sum of data elements */
+    int *partial_sums = NULL;
+    int *data = NULL, *data_share = NULL;
+	int id;
+	int n;
+    int nproc;
+	int tempsum, source;
+	MPI_Status status;
+	int call_status;
+	double startTime, totalTime;
+
+  	if (argc != 2) {
+		fprintf(stderr,"Usage: %s  <number of elements>\n",argv[0]); 
+		exit(1);
+	} 
+	n = atoi(argv[1]);      // number of data elements
+	data = (int *) malloc(sizeof(int)*n);     // data array
+
+  	/* Start up MPI */
+  	MPI_Init(&argc, &argv);
+	MPI_Comm_size(MPI_COMM_WORLD, &nproc);
+	MPI_Comm_rank(MPI_COMM_WORLD, &id);
+
+	int share = n/nproc;
+	if (id == nproc-1) share = share + n % nproc;
+	data_share = (int *) malloc(sizeof(int)*share);     // data_share array	
+
+	if (id == 0) {
+  		/* Generate numbers to be summed up */
+	  for (i=0; i<n; i++){
+	  	if(i < share) /* generate and copy share for process 0 */
+	      data_share[i] = data[i]=1;
+	    else /* generate the rest for the other processes */
+	       data[i] = 1;
+	  }
+	}
+
+	startTime = MPI_Wtime();
+
+	if (id == 0) {
+		/* Send initial data to other processes */
+		for (i=1; i<nproc; i++) {
+			if (i==nproc-1) 
+				call_status = MPI_Send(data+share*i, share+n%nproc, MPI_INT, i, INITIAL_BROADCAST, MPI_COMM_WORLD);
+			else 
+				call_status = MPI_Send(data+share*i, share, MPI_INT, i, INITIAL_BROADCAST, MPI_COMM_WORLD);
+			if (call_status == MPI_SUCCESS) 
+				printf("Sent data to process %d\n", i);
+			else {
+				fprintf(stderr, "spmd_sum_2: Error in sending data to process %d\n", i);
+				exit(1);
+			}
+		}
+	} else {
+		MPI_Recv(data_share, share, MPI_INT, 0, INITIAL_BROADCAST, MPI_COMM_WORLD, &status);
+	}
+
+  	int result = add(data_share, share);
+
+	if (id == 0) {
+        partial_sums = (int *)malloc(sizeof(int)*nproc);
+		/* Process 0 gets its partial sum from local variable result */
+		partial_sums[0] = result;
+	} else {
+  		/* Other processes send partial sum to the process 0 */ 	
+		MPI_Send(&result, 1, MPI_INT, 0, PARTIAL_SUM, MPI_COMM_WORLD );
+	
+	}
+
+	if (id == 0) {
+		printf(" I got %d from %d\n", partial_sums[id], id); 
+  		/* Wait for results from other processes */
+    
+  		for (i=0; i<nproc-1; i++) {
+			MPI_Recv(&tempsum, 1, MPI_INT, MPI_ANY_SOURCE, PARTIAL_SUM, MPI_COMM_WORLD, &status);
+			source = status.MPI_SOURCE;
+			partial_sums[source] = tempsum;
+			printf("I got %d from %d\n", partial_sums[source], source);
+    	}
+
+  		/* Compute the global sum */
+  		for (i=0; i<nproc; i++)
+    		total += partial_sums[i];
+		printf("The total is %d\n", total);
+		totalTime = MPI_Wtime() - startTime;
+		printf("The total is %d. Time taken = %lf seconds\n", total, totalTime);
+		free(partial_sums);
+	}
+
+  	/* Program finished. Exit MPI */
+  	MPI_Finalize();
+    free(data);
+	free(data_share);
+  	exit(0);
+}
+
+/* vim: set ts=4: */

@@ -1,0 +1,12 @@
+
+
+To build:
+
+export CLASSPATH=../../hadoop/hadoop-core-1.0.4.jar:../../hadoop/lib/commons-cli-1.2.jar:.
+ant jar
+
+To run:
+
+../../hadoop/bin/hadoop fs -put input
+../../hadoop/bin/hadoop jar wordcount.jar inpt output
+../../hadoop/bin/hadoop fs -get output

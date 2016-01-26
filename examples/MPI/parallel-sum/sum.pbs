@@ -1,0 +1,10 @@
+#!/bin/sh
+#PBS -l nodes=8:node
+
+
+cd $HOME/cs430/MPI/parallel-sum/
+
+# put a sleep here so the job lasts long enough for us to observe
+sleep 10
+
+mpiexec -n 8 spmd_sum_3 10000000

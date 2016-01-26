@@ -1,0 +1,32 @@
+[amit@beowulf PBS ~/parallel-io]:test.sh
+time mpiexec -n 8 io3 10240 /pvfs2/amit/testfile
+
+real    0m7.677s
+user    0m0.139s
+sys     0m0.017s
+
+time mpiexec -n 8 io2 10240 /tmp/testfile
+
+real    0m0.843s
+user    0m0.245s
+sys     0m0.030s
+
+time mpiexec -n 8 io1 10240 testfile
+
+real    0m44.423s
+user    0m0.180s
+sys     0m0.031s
+
+time mpiexec -n 8 io2 10240 testfile
+
+real    0m30.977s
+user    0m0.124s
+sys     0m0.025s
+
+time mpiexec -n 8 io3 10240 testfile
+
+real    0m25.915s
+user    0m0.135s
+sys     0m0.026s
+
+[amit@beowulf PBS ~/parallel-io]:   

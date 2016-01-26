@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	
+	<property>
+		<name>mapred.job.tracker</name>
+		<value>hdfs://node00:9001</value>
+	</property>
+
+	<property>
+		<name>mapred.job.tracker.http.address</name>
+		<value>0.0.0.0:50030</value>
+	</property>
+	
+	<property>
+		<name>mapred.task.tracker.http.address</name>
+		<value>0.0.0.0:50060</value>
+	</property>
+
+	<property>
+		<name>mapred.system.dir</name>
+		<value>/tmp/hadoop-YOURUSERNAME/mapred/system</value>
+	</property>
+
+	<property>
+		<name>mapred.local.dir</name>
+		<value>/tmp/hadoop-YOURUSERNAME/mapred/local</value>
+	</property>
+
+	<property>
+		<name>mapred.map.tasks.maximum</name>
+		<value>17</value>
+		<description>
+		The maximum number of map tasks which are run simultaneously
+		on a given TaskTracker individually. This should be a prime 
+		number larger than multiple of the number of slave hosts.
+		</description>
+	</property>
+
+	<property>
+		<name>mapred.reduce.tasks.maximum</name>
+		<value>16</value>
+	</property>
+</configuration>
