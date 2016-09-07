@@ -5,7 +5,7 @@ CFLAGS= -Wall
 #CFLAGS= -Wall -g
 LDFLAGS = 
 # Use the following to enable logging and visualization
-#LDFLAGS = -llmpe -lmpe
+#LDFLAGS = -llmpe -lmpe -lpthread
 
 
 all: spmd_hello_world

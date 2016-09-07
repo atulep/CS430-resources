@@ -1,7 +1,7 @@
 
 CC=mpicc 
 CFLAGS = -Wall -O
-#LDFLAGS =  -llmpe -lmpe
+#LDFLAGS =  -llmpe -lmpe -lpthread
 
 all: io1 io2 io3 io4
 

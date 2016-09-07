@@ -2,7 +2,7 @@
 CC=mpicc 
 CFLAGS = -Wall  
 #uncomment the following to enable logging and visualization
-#LDFLAGS = -llmpe -lmpe
+#LDFLAGS = -llmpe -lmpe -lpthread
 
 all: time_alltoallv
 

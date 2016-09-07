@@ -2,7 +2,7 @@ DEBUG = 0
 CC=mpicc 
 CFLAGS = -O -Wall 
 #LDFLAGS = -lmpe  -lm /usr/lib64/libX11.so.6
-LDFLAGS = -lmpe  -lm -lX11
+LDFLAGS = -lmpe  -lm -lX11 -lpthread
 
 all: monte monte-anim
 
