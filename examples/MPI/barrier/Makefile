@@ -1,8 +1,7 @@
 DEBUG = 0
 CC=mpicc 
 CFLAGS = -O -Wall 
-#LDFLAGS = -llmpe -lmpe -lm
-LDFLAGS =  -lmpe -lm
+LDFLAGS = -llmpe -lmpe -lm -lpthread
 
 all: barrier_demo_mpi lb_demo_mpi
 

@@ -5,7 +5,7 @@ CC=mpicc
 CFLAGS= -Wall -g
 LDFLAGS =
 # Use the following to enable logging and visualization
-#LDFLAGS = -llmpe -lmpe
+#LDFLAGS = -llmpe -lmpe -lpthread
 
 
 all: parallel_prefix

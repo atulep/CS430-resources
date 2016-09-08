@@ -5,7 +5,7 @@ CFLAGS= -Wall -O
 #CFLAGS= -Wall -g
 LDFLAGS= -lprand
 # Use the following to enable logging and visualization
-#LDFLAGS = -llmpe -lmpe
+#LDFLAGS = -llmpe -lmpe -lpthread
 
 
 all: seq_random random

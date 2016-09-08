@@ -2,7 +2,6 @@ DEBUG = 0
 CC=mpicc 
 CFLAGS = -g -Wall 
 LDFLAGS =  -llmpe -lmpe -lpthread
-#LDFLAGS =  -lpthread
 
 all: token_ring_mpi
 
