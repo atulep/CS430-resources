@@ -3,6 +3,7 @@
  process generate its share of numbers independently. 
                 
  Author: Hongyi Hu, Amit Jain
+ Note: This example has a bug in it....
  
 */
 #include <stdlib.h>
