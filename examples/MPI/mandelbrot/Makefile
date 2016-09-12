@@ -8,8 +8,8 @@ MPI_INC     =
 MPI_LIBS    = 
 CLFGAS      = 
 MPE_GRAPH   = @MPE_GRAPHICS@
-MPE_INCDIR  = /usr/local/src/mpich2-1.0.4p1/src/mpe2/include
-MPE_LIBDIR  = /usr/local/src/mpich2-1.0.4p1/src/mpe2/lib
+MPE_INCDIR  = /usr/local/src/mpich/mpe2-2.4.7/include/
+MPE_LIBDIR  = /usr/local/src/mpich/mpe2-2.4.7/lib/
 PROF_LIBS   = -L$(MPE_LIBDIR) -lmpe -lX11 $(MPI_LIBS) -lm
 #
 INCLUDE_DIR = -I$(MPE_INCDIR) $(MPI_INC)
