@@ -12,7 +12,7 @@ all:
 	cd spawn-ex1; make
 	cd spawn-ex2; make
 	cd random; make
-	cd bsort; make
+	cd bucketsort; make
 	cd prefix-sums; make
 	cd mandelbrot; make
 	cd alltoall; make
@@ -24,25 +24,6 @@ zipfile:  clean
 		   remote-memory-access spawn-ex1 spawn-ex2 random bsort prefix-sums mandelbrot
 	cp mpi-examples.zip ../../www/lab/
 
-onyx: clean
-	ssh onyx /bin/rm -fr cs430/lab/MPI/*
-	scp -r barrier onyx:cs430/lab/MPI/
-	scp -r hello-world onyx:cs430/lab/MPI/
-	scp -r file-writing onyx:cs430/lab/MPI/
-	scp -r parallel-sum onyx:cs430/lab/MPI/
-	scp -r token-ring onyx:cs430/lab/MPI/
-	scp -r monte-carlo onyx:cs430/lab/MPI/
-	scp -r monte-carlo.animation/ onyx:cs430/lab/MPI/
-	scp  Makefile onyx:cs430/lab/MPI/
-	scp -r parallel-io onyx:cs430/lab/MPI/
-	scp -r remote-memory-access onyx:cs430/lab/MPI/
-	scp -r spawn-ex1 onyx:cs430/lab/MPI/
-	scp -r spawn-ex2 onyx:cs430/lab/MPI/
-	scp -r random onyx:cs430/lab/MPI/
-	scp -r bsort onyx:cs430/lab/MPI/
-	scp -r prefix-sums onyx:cs430/lab/MPI/
-	scp -r mandelbrot onyx:cs430/lab/MPI/
-	scp -r alltoall onyx:cs430/lab/MPI/
 
 clean:
 	cd barrier; make clean 
@@ -57,7 +38,7 @@ clean:
 	cd spawn-ex1; make clean
 	cd spawn-ex2; make clean
 	cd random; make clean
-	cd bsort; make clean
+	cd bucketsort; make clean
 	cd prefix-sums; make clean
 	cd mandelbrot; make clean
 	cd alltoall; make clean

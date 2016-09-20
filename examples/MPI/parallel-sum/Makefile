@@ -1,9 +1,8 @@
 
 CC=mpicc 
 CFLAGS = -Wall   -g
-#CFLAGS = -Wall   -O3
 #uncomment the following to enable logging and visualization
-#LDFLAGS = -llmpe -lmpe -lpthread
+#LDFLAGS = -L/usr/lib -lpthread -llmpe -lmpe
 
 PROGS=seq_sum spmd_sum_0 spmd_sum_1 spmd_sum_2 spmd_sum_3 spmd_sum_3_64bit
 
